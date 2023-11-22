@@ -1,0 +1,250 @@
+{
+  "endpoints": [
+    {
+      "name": "sponsoredBrandsCampaigns",
+      "endpoint": "/reporting/reports",
+      "baseURL": "https://advertising-api.amazon.com",
+      "variableEndpoint": false,
+      "method": "POST",
+      "version": "3",
+      "description": "This report currently available in preview. During the preview period, data related to Sponsored Brands campaigns with flag isMultiAdGroupsEnabled=False won't be available. Once version 3 reporting supports all Sponsored Brands campaigns, we will announce general availability in the release notes.",
+      "requiredParams": [],
+      "requiredBody": [
+        "endDate",
+        "configuration",
+        "startDate"
+      ],
+      "requiredPath": [],
+      "requiredHeaders": [
+        "Amazon-Advertising-API-ClientId",
+        "Amazon-Advertising-API-Scope",
+        "Content-Type"
+      ],
+      "pathFields": {},
+      "paramFields": {},
+      "bodyFields": {
+        "endDate": {
+          "required": true,
+          "type": "string",
+          "doc": "YYYY-MM-DD format. Maximum date range: 31 days, Data retention: 60 days",
+          "format": "YYYY-MM-DD"
+        },
+        "configuration": {
+          "required": true,
+          "type": "object",
+          "doc": "object (AsyncReportConfiguration)",
+          "children": {
+            "adProduct": {
+              "required": true,
+              "type": "string",
+              "values": [ "SPONSORED_PRODUCTS", "SPONSORED_BRANDS" ],
+              "default": "SPONSORED_BRANDS",
+              "doc": "The advertising product such as SPONSORED_PRODUCTS or SPONSORED_BRANDS."
+            },
+            "columns": {
+              "required": true,
+              "type": "array[string]",
+              "doc": "The list of columns to be used for report. The availability of columns depends on the selection of reportTypeId. This list cannot be null or empty.",
+              "values": [
+                "addToCart",
+                "addToCartClicks",
+                "addToCartRate",
+                "brandedSearches",
+                "brandedSearchesClicks",
+                "campaignBudgetAmount",
+                "campaignBudgetCurrencyCode",
+                "campaignBudgetType",
+                "campaignId",
+                "campaignName",
+                "campaignStatus",
+                "clicks",
+                "cost",
+                "costType",
+                "detailPageViews",
+                "detailPageViewsClicks",
+                "eCPAddToCart",
+                "endDate",
+                "impressions",
+                "newToBrandDetailPageViewRate",
+                "newToBrandDetailPageViews",
+                "newToBrandDetailPageViewsClicks",
+                "newToBrandECPDetailPageView",
+                "newToBrandPurchases",
+                "newToBrandPurchasesClicks",
+                "newToBrandPurchasesPercentage",
+                "newToBrandPurchasesRate",
+                "newToBrandSales",
+                "newToBrandSalesClicks",
+                "newToBrandSalesPercentage",
+                "newToBrandUnitsSold",
+                "newToBrandUnitsSoldClicks",
+                "newToBrandUnitsSoldPercentage",
+                "purchases",
+                "purchasesClicks",
+                "purchasesPromoted",
+                "sales",
+                "salesClicks",
+                "salesPromoted",
+                "startDate",
+                "topOfSearchImpressionShare",
+                "unitsSold",
+                "unitsSoldClicks",
+                "video5SecondViewRate",
+                "video5SecondViews",
+                "videoCompleteViews",
+                "videoFirstQuartileViews",
+                "videoMidpointViews",
+                "videoThirdQuartileViews",
+                "videoUnmutes",
+                "viewabilityRate",
+                "viewableImpressions",
+                "viewClickThroughRate"
+              ],
+              "default": [
+                "addToCart",
+                "addToCartClicks",
+                "addToCartRate",
+                "brandedSearches",
+                "brandedSearchesClicks",
+                "campaignBudgetAmount",
+                "campaignBudgetCurrencyCode",
+                "campaignBudgetType",
+                "campaignId",
+                "campaignName",
+                "campaignStatus",
+                "clicks",
+                "cost",
+                "costType",
+                "date",
+                "detailPageViews",
+                "detailPageViewsClicks",
+                "eCPAddToCart",
+                "endDate",
+                "impressions",
+                "newToBrandDetailPageViewRate",
+                "newToBrandDetailPageViews",
+                "newToBrandDetailPageViewsClicks",
+                "newToBrandECPDetailPageView",
+                "newToBrandPurchases",
+                "newToBrandPurchasesClicks",
+                "newToBrandPurchasesPercentage",
+                "newToBrandPurchasesRate",
+                "newToBrandSales",
+                "newToBrandSalesClicks",
+                "newToBrandSalesPercentage",
+                "newToBrandUnitsSold",
+                "newToBrandUnitsSoldClicks",
+                "newToBrandUnitsSoldPercentage",
+                "purchases",
+                "purchasesClicks",
+                "purchasesPromoted",
+                "sales",
+                "salesClicks",
+                "salesPromoted",
+                "startDate",
+                "topOfSearchImpressionShare",
+                "unitsSold",
+                "unitsSoldClicks",
+                "video5SecondViewRate",
+                "video5SecondViews",
+                "videoCompleteViews",
+                "videoFirstQuartileViews",
+                "videoMidpointViews",
+                "videoThirdQuartileViews",
+                "videoUnmutes",
+                "viewabilityRate",
+                "viewableImpressions",
+                "viewClickThroughRate"
+              ],
+              "children": {
+                "column": {
+                  "type": "string",
+                  "required": true,
+                  "doc": "Columns for report"
+                }
+              }
+            },
+            "reportTypeId": {
+              "required": true,
+              "type": "string",
+              "doc": false,
+              "values": [ "sbCampaigns" ],
+              "default": "sbCampaigns"
+            },
+            "format": {
+              "required": true,
+              "type": "string",
+              "values": [ "GZIP_JSON" ],
+              "default": "GZIP_JSON",
+              "doc": false
+            },
+            "groupBy": {
+              "required": true,
+              "type": "array[string]",
+              "doc": "This field determines the aggregation level of the report data and also makes additional fields available for selection. This field cannot be null or empty.",
+              "default": [ "campaign" ],
+              "children": {
+                "group": {
+                  "type": "string",
+                  "doc": "Report Aggregation Level",
+                  "required": true,
+                  "values": [ "campaignBudgetAmount", "campaignBudgetCurrencyCode", "campaignBudgetType", "topOfSearchImpressionShare", "campaign" ]
+
+                }
+              }
+            },
+            "filters": {
+              "required": false,
+              "type": "array[object]",
+              "doc": "The list of filters supported by a report type. The availability of filters fields depends on the selection of reportTypeId.",
+              "children": {
+                "campaignStatus": {
+                  "values": [ "ENABLED", "PAUSED", "ARCHIVED" ],
+                  "required": false,
+                  "type": "string",
+                  "doc": "Filters Campaigns by Status"
+                }
+              }
+            },
+            "timeUnit": {
+              "required": true,
+              "type": "string",
+              "values": [ "SUMMARY", "DAILY" ],
+              "doc": "The aggregation level of report data. If the timeUnit is set to SUMMARY, the report data is aggregated at the time period specified. The availability of time unit breakdowns depends on the selection of reportTypeId.",
+              "default": "DAILY"
+            }
+          }
+        },
+        "name": {
+          "required": false,
+          "type": "string",
+          "doc": "The name of the report."
+        },
+        "startDate": {
+          "required": true,
+          "type": "string",
+          "doc": "YYYY-MM-DD format. Maximum date range: 31 days, Data retention: 60 days",
+          "format": "YYYY-MM-DD"
+        }
+      },
+      "headerFields": {
+        "Amazon-Advertising-API-ClientId": {
+          "required": true,
+          "type": "string",
+          "doc": false
+        },
+        "Amazon-Advertising-API-Scope": {
+          "required": true,
+          "type": "string",
+          "doc": false
+        },
+        "Content-Type": {
+          "required": true,
+          "type": "string",
+          "doc": false,
+          "default": "application/vnd.createasyncreportrequest.v3+json"
+        }
+      }
+    }
+  ]
+}

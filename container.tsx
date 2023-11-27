@@ -9,7 +9,7 @@ import General from "./General"
 const validationSchema = {
     required: "File is required",
     validate: {
-        isJson: (file) => file.type === ".json" || "File must be a JSON file",
+        isJson: (file) => file.type === "application/json" || "File must be a JSON file",
     },
 }
 
@@ -31,30 +31,24 @@ function Container() {
 
         // Set the form values state with the new form values
         setFormValues(newFormValues)
-    }, [jsonData])
+    }, [jsonData]);
+
+
+    function fileCallback(e) {
+        var fileString = e.target.result;
+        var json = JSON.parse(fileString);
+        console.log(json);
+        setJsonData(json);
+    }
 
     // Define the onSubmit function for the file upload
-    const onSubmit = async (data) => {
-        // Get the file object from the data
-        const file = data.file[0]
-
-        // Create a file reader to read the file content
-        const reader = new FileReader()
-
-        // Set the onload event handler for the file reader
-        reader.onload = (event) => {
-            // Get the file content from the event
-            const content = event.target.result
-
-            // Parse the file content as JSON
-            const json = JSON.parse(content)
-
-            // Set the JSON data state with the parsed JSON
-            setJsonData(json)
-        }
-
-        // Read the file as text
-        reader.readAsText(file)
+    function onSubmit() {
+        console.log('Started');
+        var input = document.getElementById('file')
+        var reader = new FileReader();
+        reader.onload = (e) => fileCallback(e);
+        reader.readAsText(input.files[0])
+        
     }
 
     // Return the JSX code for the component
@@ -72,9 +66,9 @@ function Container() {
                     id="file"
                     name="file"
                     type="file"
-                    accept=".json"
+                    accept="application/json"
                     {...register("file", validationSchema)}
-                    className="block w-full py-2 px-4 border border-gray-300 rounded-md outline-none focus:border-green-600"
+                    className="block w-full py-2 px-4 text-black border border-gray-300 rounded-md outline-none focus:border-green-600"
                 />
                 {errors.file && (
                     <div className="text-sm text-red-600 mt-1">
@@ -82,6 +76,7 @@ function Container() {
                     </div>
                 )}
                 <button
+                    onClick={(e) => onSubmit(e)}
                     type="submit"
                     className="block w-full py-3 px-4 bg-green-600 text-white font-bold rounded-md cursor-pointer mt-4"
                 >

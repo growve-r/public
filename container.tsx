@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import _ from "lodash"
@@ -7,7 +9,7 @@ import General from "./General"
 const validationSchema = {
     required: "File is required",
     validate: {
-        isJson: (file) => file.type === "application/json" || "File must be a JSON file",
+        isJson: (file) => file.type === ".json" || "File must be a JSON file",
     },
 }
 
@@ -58,38 +60,39 @@ function Container() {
     // Return the JSX code for the component
     return (
         <div className="w-4/5 max-w-xl mx-auto my-8 p-8 border border-gray-300 rounded-lg shadow-lg bg-white">
-  <h1 className="text-3xl text-green-600">Create/Edit Endpoint</h1>
-  <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
-    <label
-      htmlFor="file"
-      className="block text-lg font-bold mb-2 text-gray-700"
-    >
-      Upload a JSON file
-    </label>
-    <input
-      id="file"
-      name="file"
-      type="file"
-      accept=".json"
-      {...register("file", validationSchema)}
-      className="block w-full py-2 px-4 border border-gray-300 rounded-md outline-none focus:border-green-600"
-    />
-    {errors.file && (
-      <div className="text-sm text-red-600 mt-1">
-        {errors.file.message}
-      </div>
-    )}
-    <button
-      type="submit"
-      className="block w-full py-3 px-4 bg-green-600 text-white font-bold rounded-md cursor-pointer mt-4"
-    >
-      Upload
-    </button>
-  </form>
-  {jsonData && (
-    <General formValues={formValues} setFormValues={setFormValues} />
-  )}
-</div>
+            <h1 className="text-3xl text-green-600">Create/Edit Endpoint</h1>
+            <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
+                <label
+                    htmlFor="file"
+                    className="block text-lg font-bold mb-2 text-gray-700"
+                >
+                    Upload a JSON file
+                </label>
+                <input
+                    id="file"
+                    name="file"
+                    type="file"
+                    accept=".json"
+                    {...register("file", validationSchema)}
+                    className="block w-full py-2 px-4 border border-gray-300 rounded-md outline-none focus:border-green-600"
+                />
+                {errors.file && (
+                    <div className="text-sm text-red-600 mt-1">
+                        {errors.file.message}
+                    </div>
+                )}
+                <button
+                    type="submit"
+                    className="block w-full py-3 px-4 bg-green-600 text-white font-bold rounded-md cursor-pointer mt-4"
+                >
+                    Upload
+                </button>
+            </form>
+            {jsonData && (
+                <General formValues={formValues} setFormValues={setFormValues} />
+            )}
+        </div>
+
 
     )
 }
